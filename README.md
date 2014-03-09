@@ -1,4 +1,4 @@
 experiments
 ===========
 
-Sometimes, I like to play with javascript.
+Sometimes, I get bored and play with javascript.
