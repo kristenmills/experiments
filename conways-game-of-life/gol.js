@@ -7,39 +7,63 @@ var GOL = {
   context: null,
   cells: null,
 
-  // The function that draws the grid
-  drawGrid: function(){
-    var width = this.columns*this.cellsize;
-    var height = this.rows*this.cellsize
-    for(var i = 0; i <= width; i += this.cellsize){
-      this.context.moveTo(0.5 + i, 0);
-      this.context.lineTo(0.5 + i, height);
-    }
+  init: {
+    drawGrid: function(){
+      var width = GOL.columns*GOL.cellsize;
+      var height = GOL.rows*GOL.cellsize
+      for(var i = 0; i <= width; i += GOL.cellsize){
+        GOL.context.moveTo(0.5 + i, 0);
+        GOL.context.lineTo(0.5 + i, height);
+      }
 
-    for(var i = 0; i <= height; i += this.cellsize){
-      this.context.moveTo(0, 0.5 + i);
-      this.context.lineTo(width, 0.5 +i);
-    }
+      for(var i = 0; i <= height; i += GOL.cellsize){
+        GOL.context.moveTo(0, 0.5 + i);
+        GOL.context.lineTo(width, 0.5 +i);
+      }
 
-    this.context.strokeStyle = "#ccc";
-    this.context.stroke();
+      GOL.context.strokeStyle = "#ccc";
+      GOL.context.stroke();
+    },
+
+    // Initially populate the cells
+    populateCells: function(){
+      GOL.cells = new Array();
+      for(var i = 0; i < GOL.rows; i++){
+        GOL.cells[i] = new Array();
+        for(var j = 0; j < GOL.columns; j++){
+          GOL.cells[i][j] = new Cell();
+        }
+      }
+    },
+
+    register: function(){
+      GOL.canvas.addEventListener('click', GOL.handlers.click, false);
+    },
+
+    setup: function(){
+      this.drawGrid();
+      this.populateCells();
+      this.register();
+    }
   },
-
-  // Initially populate the cells
-  populateCells: function(){
-    this.cells = new Array();
-    for(var i = 0; i < this.rows; i++){
-      this.cells[i] = new Array();
-      for(var j = 0; j < this.columns; j++){
-        this.cells[i][j] = new Cell();
+  handlers: {
+    click: function(event){
+      var x = event.offsetX;
+      var y = event.offsetY;
+      var column = Math.floor(x/GOL.cellsize);
+      var row = Math.floor(y/GOL.cellsize);
+      if(GOL.cells[row][column].alive){
+        GOL.cells[row][column].age = 0;
+        GOL.cells[row][column].alive = false;
+        GOL.context.fillStyle = "#fff";
+        GOL.context.fillRect(column*GOL.cellsize + 1, row*GOL.cellsize +1 , GOL.cellsize- 1, GOL.cellsize -1)
+      }else{
+        GOL.cells[row][column].age = 1;
+        GOL.cells[row][column].alive = true;
+        GOL.context.fillStyle = "#000";
+        GOL.context.fillRect(column*GOL.cellsize + 1, row*GOL.cellsize + 1, GOL.cellsize -1 , GOL.cellsize - 1)
       }
     }
-  },
-
-  // Initialize a game
-  init: function() {
-    this.drawGrid();
-    this.populateCells();
   }
 }
 
@@ -51,7 +75,7 @@ function Cell(){
 $(document).ready(function(){
   var width = GOL.columns*GOL.cellsize;
   var height = GOL.rows*GOL.cellsize
-  GOL.canvas = $('canvas').attr({width: width + 1, height: height + 1});
-  GOL.context = GOL.canvas.get(0).getContext("2d");
-  GOL.init();
+  GOL.canvas = $('canvas').attr({width: width + 1, height: height + 1}).get(0);
+  GOL.context = GOL.canvas.getContext("2d");
+  GOL.init.setup();
 });
