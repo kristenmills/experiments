@@ -1,14 +1,76 @@
 <!DOCTYPE html>
-<html>
+<html class="no-js" lang="en">
   <head>
     <title>Fractals</title>
-    <script src="../common/js/jquery-2.1.0.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../common/css/normalize.css">
+    <link rel="stylesheet" href="../common/css/foundation.min.css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+
+    <script src="../common/js/modernizr.js"></script>
+
     <script src="../common/js/two.min.js"></script>
-    <script src="fractals.js"></script>
+    <script src="../common/js/jquery-2.1.0.min.js"></script>
+    <script src="../common/js/foundation.min.js"></script>
+    <script src="js/tree.js"></script>
+    <script src="js/fractal.js"></script>
   </head>
   <body>
-    <div id="fractal-canvas">
-       <div class="two-container"></div>
+
+    <div id="fractal-canvas" class="row">
+      <h1 class="text-center">Fractals</h1>
+      <div class="two-container"></div>
+      <dl class="tabs" data-tab>
+        <dd class="active"><a href="#tree" data-toggle="tab">Tree</a></dd>
+      </dl>
+
+      <div class="tabs-content">
+        <div class="content active" id="tree">
+          <div class="panel well-additions">
+            <form id="tree-form">
+              <div class="row">
+                <div class="large-4 columns">
+                  <label> Theta
+                    <div id="tree-theta"class="range-slider round" data-slider data-options="start: 0; end: 180;">
+                      <span class="range-slider-handle"></span>
+                      <span class="range-slider-active-segment"></span>
+                      <input type="hidden">
+                    </div>
+                  </label>
+                </div>
+                <div class="large-4 columns">
+                  <label>Side
+                    <div id="tree-side" class="range-slider round" data-slider data-options="start: 0; end: 350;">
+                      <span class="range-slider-handle"></span>
+                      <span class="range-slider-active-segment"></span>
+                      <input type="hidden">
+                    </div>
+                  </label>
+                </div>
+                <div class="large-4 columns">
+                  <label> Depth
+                    <div id="tree-depth" class="range-slider round" data-slider data-options="start: 1; end: 12;">
+                      <span class="range-slider-handle"></span>
+                      <span class="range-slider-active-segment"></span>
+                      <input type="hidden">
+                    </div>
+                  </label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="small-2 small-centered columns">
+                  <input type="submit" class="button" value="Submit">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
+    <script>
+      $(document).foundation();
+    </script>
   </body>
 </html>

@@ -1,0 +1,30 @@
+.two-container{
+  width: 900px;
+  margin-left: auto ;
+  margin-right: auto ;
+}
+
+.well-additions {
+  border-top: 0px !important;
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.05) !important;
+  border-top-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+}
+
+.tabs dd.active a {
+  background: #fafafa !important;
+  border-bottom-color: transparent !important;
+}
+
+.tabs dd a{
+  background: white !important;
+  border: 1px solid #DDDDDD !important;
+}
+
+.content {
+  padding-top: 0px !important;
+}
+
+.panel {
+  background-color: #FAFAFA;
+}
